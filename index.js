@@ -19,13 +19,21 @@ app.use(cookieParser());
 
 // ✅ CORS Configuration
 const corsOptions = {
-  origin: "http://localhost:5173", // your frontend origin
-  credentials: true,               // allow cookies to be sent
-  methods: ["GET", "POST", "PUT", "DELETE"], // optional: specify allowed methods
-  allowedHeaders: ["Content-Type", "Authorization"] // optional: specify allowed headers
+  origin: [
+    "http://localhost:5173", // development frontend
+    "https://heartfelt-llama-e0c1b0.netlify.app" // deployed frontend
+  ],
+  credentials: true, // allow cookies to be sent
+  methods: ["GET", "POST", "PUT", "DELETE"], // allowed methods
+  allowedHeaders: ["Content-Type", "Authorization"], // allowed headers
 };
 
 app.use(cors(corsOptions));
+
+// ✅ Test API to confirm server is running
+app.get("/", (req, res) => {
+  res.send("✅ API is working 🚀");
+});
 
 // ✅ API Routes
 app.use("/api/v1/user", userRoute);
